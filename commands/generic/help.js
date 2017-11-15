@@ -1,16 +1,24 @@
-class Help {
+const Command = require('../../structure/Command');
+
+class Help extends Command {
     constructor(bot) {
+        super();
         this.cmd = 'help';
+        this.type = 'generic';
         this.bot = bot;
+        this.typeMap = {
+            'generic': '<:poicolle:380425500683927553> Standard Commands',
+            'fun': '<:poiLove:379725495161323530> Fun Commands'
+        }
     }
 
-    async run(msg, bot, commands) {
-        let embed = this.buildEmbed(commands);
-        console.log(embed);
+    async run(msg) {
+        let embed = this.buildEmbed(Object.assign({}, this.bot.commands, this.bot.aliasMap));
         return this.bot.rest.channel.createMessage(msg.channel_id, embed);
     }
 
     buildEmbed(commands) {
+        let cmds = Object.keys(commands).map((key) => '`' + key + '`').join(', ');
         return {
             embed: {
                 title: "Hi, I'm Yuudachi, a Shiratsuyu-class destroyer. Nice to meet you!",
@@ -19,18 +27,21 @@ class Help {
                 thumbnail: {
                     url: 'https://cdn.discordapp.com/emojis/379720490924769292.png'
                 },
-                fields: [
-                    {
-                        name: '<:poiLove:379725495161323530> Fun Commands',
-                        value: '`cuddle`, `hug`, `etc`'
-                    },
-                    {
-                        name: 'Support Server and other memes',
-                        value: 'owo'
-                    }
-                ]
+                fields: this.buildFields(this.bot.commandTypes)
             }
-        };
+        }
+    }
+
+    buildFields(types) {
+        let typeArray = Object.keys(types);
+        let fields = [];
+        for (let type of typeArray) {
+            let field = {name: '', value: ''};
+            field.name = this.typeMap[type];
+            field.value = types[type].map((cmd) => '`' + cmd + '`').join(', ');
+            fields.push(field);
+        }
+        return fields;
     }
 }
 
