@@ -197,8 +197,8 @@ safe-buffer@^5.0.1:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
 snowtransfer@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/snowtransfer/-/snowtransfer-0.1.1.tgz#738af3e25336c3ea66f03e21465e8be73384ee48"
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/snowtransfer/-/snowtransfer-0.1.2.tgz#eca38f16e78f5f81bd3e72d4aae229651ade07f8"
   dependencies:
     axios "~0.16.2"
     form-data "~2.3.1"
@@ -211,10 +211,10 @@ stack-trace@0.0.9:
 
 stargear@DasWolke/StarGear#dev:
   version "0.1.0"
-  resolved "https://codeload.github.com/DasWolke/StarGear/tar.gz/922814e9232dd9aefd3a1852e2ae10a4ffc2ca2e"
+  resolved "https://codeload.github.com/DasWolke/StarGear/tar.gz/745dd422817c0d9ddfe065eeec216351ee66aa37"
   dependencies:
-    raincache DasWolke/RainCache
-    snowtransfer DasWolke/SnowTransfer
+    raincache DasWolke/RainCache#dev
+    snowtransfer "^0.1.0"
   optionalDependencies:
     amqplib "^0.5.1"
 

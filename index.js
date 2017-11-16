@@ -2,12 +2,13 @@ const config = require('./config/config.json');
 const StarGear = require('stargear');
 const RainCache = require('raincache');
 let RedisEngine = RainCache.Engines.RedisStorageEngine;
-const cache = new RainCache({storage: {default: new RedisEngine({host: 'localhost'})}, debug: false});
+const cache = new RainCache({storage: {default: new RedisEngine({})}, debug: false});
 const AmqpConnector = require('stargear').Connectors.AmqpConnector;
 let con = new AmqpConnector({});
-let bot = new StarGear({cache, token: config.token}, con);
+// baseHost: 'http://localhost:4096'
+let bot = new StarGear({cache, token: config.token, rest: {}}, con);
 const BotLoader = require('./loader/BotLoader');
-const util = require("util");
+const util = require('util');
 let axios = require('axios');
 let init = async () => {
     await bot.initialize();
@@ -24,7 +25,7 @@ let init = async () => {
             let channel = await bot.rest.user.createDirectMessageChannel('128392910574977024');
             await bot.rest.channel.createMessage(channel.id, 'GATEWAY IS DOWN!!!!!!');
         }
-    }, 10000)
+    }, 10000);
 };
 init().then(() => {
     console.log('initialized successfully');
