@@ -1,4 +1,5 @@
 let axios = require('axios');
+const devToken = require('../config/config.json').weebDevToken;
 
 class WeebHandler {
     constructor(weebToken, bot) {
@@ -36,6 +37,28 @@ class WeebHandler {
             image: {url: image.url},
             footer: {text: 'Powered by Weeb.sh'}
         };
+    }
+
+    async getReputation(botId, userId) {
+        let req = await axios.get(`http://localhost:9020/${botId}/${userId}`, {headers: {Authorization: `Wolke ${devToken}`}});
+        return req.data.user;
+    }
+
+    async increaseReputation(botId, sourceUserId, targetUserId) {
+        let req = await axios({
+            url: `http://localhost:9020/${botId}/${targetUserId}`,
+            headers: {
+                Authorization: `Wolke ${devToken}`
+            },
+            data: {source_user: sourceUserId},
+            method: 'post'
+        });
+        return req.data;
+    }
+
+    async loadReputationLeaderboard(botId) {
+        let req = await axios.get(`http://localhost:9020/${botId}/leaderboard`, {headers: {Authorization: `Wolke ${devToken}`}});
+        return req.data.users;
     }
 }
 

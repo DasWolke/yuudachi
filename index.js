@@ -6,7 +6,7 @@ const cache = new RainCache({storage: {default: new RedisEngine({})}, debug: fal
 const AmqpConnector = require('stargear').Connectors.AmqpConnector;
 let con = new AmqpConnector({});
 // baseHost: 'http://localhost:4096'
-let bot = new StarGear({cache, token: config.token, rest: {}}, con);
+let bot = new StarGear({cache, token: config.token, rest: {baseHost: 'http://localhost:4096'}}, con);
 const BotLoader = require('./loader/BotLoader');
 const util = require('util');
 let axios = require('axios');

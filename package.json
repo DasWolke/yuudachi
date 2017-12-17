@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.17.1",
+    "moment": "^2.19.3",
+    "node-osu": "^1.3.0",
     "raincache": "DasWolke/RainCache#dev",
     "recursive-readdir": "^2.2.1",
     "stargear": "DasWolke/StarGear#dev"
