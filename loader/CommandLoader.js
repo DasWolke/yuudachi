@@ -4,8 +4,13 @@ module.exports = async (dirPath, bot) => {
     let aliasMap = {};
     let types = {};
     let files = await recursive(dirPath);
+    let subCommands = [];
     for (let file of files) {
         let commandClass = require('../' + file);
+        if (commandClass.isSubcommand) {
+            subCommands.push(commandClass);
+            continue;
+        }
         let command = new commandClass(bot);
         commands[command.cmd] = command;
         if (Array.isArray(types[command.type])) {
@@ -17,5 +22,11 @@ module.exports = async (dirPath, bot) => {
             aliasMap[alias] = command.cmd;
         }
     }
-    return {commands, aliasMap, types}
+    for (let subCommand of subCommands) {
+        let cmd = new subCommand(bot);
+        if (commands[cmd.parent]) {
+            commands[cmd.parent].subCommands[cmd.cmd] = cmd;
+        }
+    }
+    return {commands, aliasMap, types};
 };

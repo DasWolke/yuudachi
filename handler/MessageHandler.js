@@ -28,13 +28,19 @@ class MessageHandler {
                     }
                     msg.cmd = cmd;
                     if (this.commands[cmd]) {
-                        return this.commands[cmd].run(msg, this.bot, this.commands);
+                        let args = this._getCommandArguments(msg, cmd);
+                        return this.commands[cmd].run(msg, args);
                     }
                 } catch (e) {
 
                 }
             }
         }
+    }
+
+    _getCommandArguments(msg, cmd) {
+        let index = msg.content.split(' ').indexOf(cmd);
+        return msg.content.split(' ').splice(index + 1);
     }
 }
 

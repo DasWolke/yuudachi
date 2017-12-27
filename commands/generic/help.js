@@ -13,9 +13,44 @@ class Help extends Command {
         };
     }
 
-    async run(msg) {
+    async run(msg, args) {
+        if (args.length > 0) {
+            if (this.bot.commands[args[0]]) {
+                let cmd = this.bot.commands[args[0]];
+                if (cmd.help) {
+                    let embed = this.buildCmdEmbed(cmd);
+                    return this.bot.rest.channel.createMessage(msg.channel_id, embed);
+                }
+            }
+        }
         let embed = this.buildEmbed();
         return this.bot.rest.channel.createMessage(msg.channel_id, embed);
+    }
+
+    buildCmdEmbed(cmd) {
+        return {
+            embed: {
+                title: `Help for ${cmd.cmd} commands`,
+                description: cmd.help.description,
+                fields: this.buildCmdFields(cmd),
+                thumbnail: {
+                    url: cmd.help.thumbnail ? cmd.help.thumbnail : 'https://cdn.discordapp.com/emojis/379720490924769292.png'
+                },
+                color: cmd.help.color ? cmd.help.color : 15980350
+            }
+        };
+    }
+
+    buildCmdFields(cmd) {
+        let fields = [];
+        for (let commandKey of Object.keys(cmd.subCommands)) {
+            let subcommand = cmd.subCommands[commandKey];
+            let field = {name: '', value: ''};
+            field.name = `${cmd.cmd} ${subcommand.cmd}`;
+            field.value = subcommand.help.description;
+            fields.push(field);
+        }
+        return fields;
     }
 
     buildEmbed() {
