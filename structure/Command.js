@@ -5,6 +5,7 @@ class Command {
         this.cmd = null;
         this.aliases = [];
         this.subCommands = {};
+        this.baseFields = [];
         this.type = null;
     }
 

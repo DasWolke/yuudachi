@@ -42,7 +42,7 @@ class Help extends Command {
     }
 
     buildCmdFields(cmd) {
-        let fields = [];
+        let fields = cmd.baseFields;
         for (let commandKey of Object.keys(cmd.subCommands)) {
             let subcommand = cmd.subCommands[commandKey];
             let field = {name: '', value: ''};
@@ -58,7 +58,7 @@ class Help extends Command {
             embed: {
                 title: 'Hi, I\'m Yuudachi, a Shiratsuyu-class destroyer. Nice to meet you!',
                 description: `What I can do for you, poi~ ? Feel free to take a look at my functions down below~\nMy prefix is \`${this.bot.config.prefix}\` but you can also mention me~`,
-                color: 15980350,
+                color: 0xF3D73E,
                 thumbnail: {
                     url: 'https://cdn.discordapp.com/emojis/379720490924769292.png'
                 },

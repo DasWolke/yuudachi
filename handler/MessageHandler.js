@@ -30,6 +30,10 @@ class MessageHandler {
                     if (this.commands[cmd]) {
                         let args = this._getCommandArguments(msg, cmd);
                         return this.commands[cmd].run(msg, args);
+                    } else if (this.bot.aliases[cmd]) {
+                        msg.cmd = this.bot.aliases[cmd];
+                        let args = this._getCommandArguments(msg, cmd);
+                        return this.commands[msg.cmd].run(msg, args);
                     }
                 } catch (e) {
 

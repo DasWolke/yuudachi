@@ -17,23 +17,10 @@ let con = new AmqpConnector({amqpUrl: config.amqpUrl});
 let bot = new StarGear({cache, token: config.token, rest: {baseHost: config.snowGateUrl}}, con);
 const BotLoader = require('./loader/BotLoader');
 const util = require('util');
-let axios = require('axios');
 let init = async () => {
     await bot.initialize();
     let botLoader = await new BotLoader(bot, config);
     await botLoader.initialize();
-    setInterval(async () => {
-        try {
-            let req = await axios.get(`${config.cloudGateUrl}/shards/status`);
-            if (!req.data.shards[0].ready) {
-                let channel = await bot.rest.user.createDirectMessageChannel('128392910574977024');
-                await bot.rest.channel.createMessage(channel.id, 'SHARD IS DOWN!!!!!!');
-            }
-        } catch (e) {
-            let channel = await bot.rest.user.createDirectMessageChannel('128392910574977024');
-            await bot.rest.channel.createMessage(channel.id, 'GATEWAY IS DOWN!!!!!!');
-        }
-    }, 10000);
 };
 init().then(() => {
     console.log('initialized successfully');

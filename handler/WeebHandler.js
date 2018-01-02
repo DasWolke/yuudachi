@@ -5,7 +5,6 @@ class WeebHandler {
     constructor(weebToken, bot) {
         this.weebToken = weebToken;
         this.client = axios.create({baseURL: 'https://api.weeb.sh', headers: {Authorization: `Wolke ${weebToken}`}});
-        this.types = [];
         this.bot = bot;
     }
 
@@ -17,10 +16,6 @@ class WeebHandler {
     async getRandom(type, tags, nsfw, hidden) {
         let req = await this.client({method: 'get', url: '/images/random', params: {type, tags, nsfw, hidden}});
         return req.data;
-    }
-
-    setTypes(types) {
-        this.types = types;
     }
 
     async handleCmd(msg) {
@@ -40,13 +35,13 @@ class WeebHandler {
     }
 
     async getReputation(botId, userId) {
-        let req = await axios.get(`http://localhost:9020/${botId}/${userId}`, {headers: {Authorization: `Wolke ${devToken}`}});
+        let req = await axios.get(`http://weeb-dev.wolke.network/reputation/${botId}/${userId}`, {headers: {Authorization: `Wolke ${devToken}`}});
         return req.data.user;
     }
 
     async increaseReputation(botId, sourceUserId, targetUserId) {
         let req = await axios({
-            url: `http://localhost:9020/${botId}/${targetUserId}`,
+            url: `http://weeb-dev.wolke.network/reputation/${botId}/${targetUserId}`,
             headers: {
                 Authorization: `Wolke ${devToken}`
             },
@@ -57,7 +52,7 @@ class WeebHandler {
     }
 
     async loadReputationLeaderboard(botId) {
-        let req = await axios.get(`http://localhost:9020/${botId}/leaderboard`, {headers: {Authorization: `Wolke ${devToken}`}});
+        let req = await axios.get(`http://weeb-dev.wolke.network/reputation/${botId}/leaderboard`, {headers: {Authorization: `Wolke ${devToken}`}});
         return req.data.users;
     }
 }
