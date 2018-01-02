@@ -25,7 +25,8 @@ class Osu extends Command {
                     return this.bot.commands['help'].run(msg, [this.cmd]);
                 }
             }
-
+        } else {
+            return this.bot.commands['help'].run(msg, [this.cmd]);
         }
     }
 }

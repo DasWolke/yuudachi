@@ -2,7 +2,6 @@
 
 Reds:
 - \#F05E5E
-- 
 
 Yellows:
 - \#F3E769

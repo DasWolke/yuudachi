@@ -56,7 +56,7 @@ class OsuProfile extends Subcommand {
             let rank = this._unfuckRank(item[0].rank);
             let field = {
                 name: item[1].title,
-                value: `[Beatmap Link](https://osu.ppy.sh/b/${item[1].id})\nScore: **${item[0].score}**,\nPP: **${item[0].pp}**,\nRank: **${rank}**`,
+                value: `[Beatmap Link](https://osu.ppy.sh/b/${item[1].id})\nVersion: **${item[1].version}**\nScore: **${parseInt(item[0].score).toLocaleString()}**,\nPP: **${parseFloat(item[0].pp).toFixed(2)}**,\nRank: **${rank}**`,
                 inline: true
             };
             fields.push(field);
