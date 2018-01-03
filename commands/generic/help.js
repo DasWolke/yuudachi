@@ -76,6 +76,10 @@ class Help extends Command {
             field.value = types[type].map((cmd) => '`' + cmd + '`').join(', ');
             fields.push(field);
         }
+        fields.push({
+            name: '<:poiPeek:380429329877827595> Helpful links',
+            value: '[Yuudachis Twitter](https://twitter.com/YuudachiBoat), [Yuudachis Support Server](https://discord.gg/PMHNfsx)'
+        });
         return fields;
     }
 }
