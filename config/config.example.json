@@ -1,0 +1,13 @@
+{
+  "token": "-",
+  "prefix": "nya",
+  "weebToken": "weeb.sh token",
+  "weebDevToken": "weeb.sh token for dev env",
+  "commandPath": "./commands",
+  "osuApiKey": "osu api key",
+  "redisHost": "",
+  "redisPassword": "",
+  "amqpUrl": "",
+  "snowGateUrl": "",
+  "cloudGateUrl": ""
+}
