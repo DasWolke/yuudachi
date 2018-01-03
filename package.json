@@ -1,6 +1,6 @@
 {
   "name": "yuudachi",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "awesome discord bot for communities",
   "main": "index.js",
   "scripts": {
