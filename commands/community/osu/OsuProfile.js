@@ -11,7 +11,8 @@ class OsuProfile extends Subcommand {
     }
 
     async run(msg, args, parent) {
-        if (args[0]) {
+        let osuUserName = this._buildOsuUsername(args);
+        if (osuUserName !== '') {
             let loadingEmbed = {
                 description: 'Loading Data from osu!...',
                 image: {url: 'https://cdn.weeb.sh/assets/Bars.webp'},
@@ -20,25 +21,25 @@ class OsuProfile extends Subcommand {
             let message = await this.bot.rest.channel.createMessage(msg.channel_id, {embed: loadingEmbed});
             let osuUser;
             try {
-                osuUser = await parent.osuApi.getUser({u: args[0]});
+                osuUser = await parent.osuApi.getUser({u: osuUserName});
             } catch (e) {
                 if (e.message === 'User not found') {
-                    return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`The user ${args[0]} does not exist. :<`)});
+                    return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`The user ${osuUserName} does not exist. :<`)});
                 }
-                return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`There was an error loading your user ${args[0]}`)});
+                return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`There was an error loading your user ${osuUserName}`)});
             }
             let userScores;
             try {
                 userScores = await parent.osuApi.getUserBest({u: osuUser.id, type: 'id'});
             } catch (e) {
                 console.log(e);
-                return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`There was an error loading your user ${args[0]}`)});
+                return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`There was an error loading your user ${osuUserName}`)});
             }
             let embed = {
-                title: `osu! profile of ${args[0]}`,
-                description: `:trophy: **Best plays of ${args[0]}**`,
+                title: `osu! profile of ${osuUserName}`,
+                description: `:trophy: **Best plays of ${osuUserName}**`,
                 fields: this._generateScoreFields(userScores),
-                image: {url: this.url + args[0]},
+                image: {url: this.url + osuUserName},
                 url: `https://osu.ppy.sh/u/${osuUser.id}`,
                 color: 0xcfa330,
                 footer: {text: 'Uses lemmmy.pw and the official osu api'}
@@ -47,6 +48,11 @@ class OsuProfile extends Subcommand {
         } else {
             return this.bot.rest.channel.createMessage(msg.channel_id, 'Nya, this feature is not implemented yet, add a username!');
         }
+    }
+
+    _buildOsuUsername(args) {
+        args = args.map(arg => arg.trim());
+        return args.join('_');
     }
 
     _generateScoreFields(scores) {
@@ -79,6 +85,7 @@ class OsuProfile extends Subcommand {
             description: message
         };
     }
+
 }
 
 module.exports = OsuProfile;

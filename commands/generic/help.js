@@ -42,7 +42,7 @@ class Help extends Command {
     }
 
     buildCmdFields(cmd) {
-        let fields = cmd.baseFields;
+        let fields = [].concat(cmd.baseFields);
         for (let commandKey of Object.keys(cmd.subCommands)) {
             let subcommand = cmd.subCommands[commandKey];
             let field = {name: '', value: ''};
