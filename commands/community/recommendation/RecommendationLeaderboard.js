@@ -30,7 +30,11 @@ class RecommendationLeaderboard extends SubCommand {
         let fields = [];
         for (let user of leaderboard) {
             if ((i === 0 && x === 0) || (x % 3 === 0 && x > 0)) {
-                fields.push({name: `${x + 1}-${x + 3}`, value: await this._prepareLeaderboardName(user, x)});
+                fields.push({
+                    name: `${x + 1}-${x + 3}`,
+                    value: await this._prepareLeaderboardName(user, x),
+                    inline: true
+                });
                 if (x !== 0) {
                     i++;
                 }
@@ -48,7 +52,7 @@ class RecommendationLeaderboard extends SubCommand {
 
     async _prepareLeaderboardName(user, x) {
         let trophy = x === 0 ? ' :trophy:' : x === 1 ? ':second_place:' : x === 2 ? ':third_place:' : '';
-        return `**${x + 1}.**${trophy} <@${user.userId}> (${await this._getUsernameFromId(user.userId)}) (${user.reputation})\n`;
+        return `**${x + 1}.**${trophy} <@${user.userId}> (**${await this._getUsernameFromId(user.userId)}**) (${user.reputation})\n`;
     }
 
     async _getUsernameFromId(id) {
@@ -56,7 +60,7 @@ class RecommendationLeaderboard extends SubCommand {
         if (!user) {
             return 'User not found';
         }
-        return user.username;
+        return `${user.username}#${user.discriminator}`;
     }
 }
 

@@ -30,11 +30,11 @@ class MessageHandler {
                     msg.cmd = cmd;
                     if (this.commands[cmd]) {
                         let args = this._getCommandArguments(msg, cmd);
-                        return this.commands[cmd].run(msg, args);
+                        return this.commands[cmd].run(msg, args, cmd);
                     } else if (this.bot.aliases[cmd]) {
                         msg.cmd = this.bot.aliases[cmd];
                         let args = this._getCommandArguments(msg, cmd);
-                        return this.commands[msg.cmd].run(msg, args);
+                        return this.commands[msg.cmd].run(msg, args, cmd);
                     }
                 } catch (e) {
 
