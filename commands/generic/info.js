@@ -10,7 +10,7 @@ class Info extends Command {
         this.bot = bot;
     }
 
-    async run(msg, args) {
+    async run(msg) {
         let selfUser = await this.bot.cache.user.get('self');
         selfUser = await this.bot.cache.user.get(selfUser.id);
         return this.bot.rest.channel.createMessage(msg.channel_id, await this.buildEmbed(selfUser));
