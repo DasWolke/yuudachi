@@ -35,25 +35,32 @@ class WeebHandler {
     }
 
     async getReputation(botId, userId) {
-        let req = await axios.get(`https://api.weeb.sh/reputation/${botId}/${userId}`, {headers: {Authorization: `Wolke ${this.weebToken}`}});
+        let req = await this.client({method: 'get', url: `/reputation/${botId}/${userId}`});
         return req.data.user;
     }
 
     async increaseReputation(botId, sourceUserId, targetUserId) {
-        let req = await axios({
-            url: `https://api.weeb.sh/reputation/${botId}/${targetUserId}`,
-            headers: {
-                Authorization: `Wolke ${this.weebToken}`
-            },
+        let req = await this.client({
+            method: 'post',
+            url: `/reputation/${botId}/${targetUserId}`,
             data: {source_user: sourceUserId},
-            method: 'post'
         });
         return req.data;
     }
 
     async loadReputationLeaderboard(botId) {
-        let req = await axios.get(`https://api.weeb.sh/reputation/${botId}/leaderboard`, {headers: {Authorization: `Wolke ${this.weebToken}`}});
+        let req = await this.client({method: 'get', url: `/reputation/${botId}/leaderboard`});
         return req.data.users;
+    }
+
+    async getShitWaifu(avatar) {
+        let req = await this.client({
+            method: 'post',
+            url: '/auto-image/waifu-insult',
+            data: {avatar},
+            responseType: 'arraybuffer'
+        });
+        return req.data;
     }
 }
 

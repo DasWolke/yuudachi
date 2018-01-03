@@ -249,7 +249,7 @@ safe-buffer@^5.0.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-snowtransfer@^0.1.0:
+snowtransfer@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/snowtransfer/-/snowtransfer-0.1.2.tgz#eca38f16e78f5f81bd3e72d4aae229651ade07f8"
   dependencies:
@@ -263,11 +263,11 @@ stack-trace@0.0.9:
   resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.9.tgz#a8f6eaeca90674c333e7c43953f275b451510695"
 
 stargear@DasWolke/StarGear#dev:
-  version "0.1.0"
-  resolved "https://codeload.github.com/DasWolke/StarGear/tar.gz/24706e9c1471820ed63c5b092cd87a3d673a6f96"
+  version "0.1.1"
+  resolved "https://codeload.github.com/DasWolke/StarGear/tar.gz/fea059d382200bd312c09e0a6f02e8b71b8524a1"
   dependencies:
     raincache DasWolke/RainCache#dev
-    snowtransfer "^0.1.0"
+    snowtransfer "^0.1.2"
   optionalDependencies:
     amqplib "^0.5.1"
 

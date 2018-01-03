@@ -22,7 +22,7 @@ class Info extends Command {
             embed: {
                 color: 0xF3E769,
                 thumbnail: {
-                    url: `https://cdn.discordapp.com/avatars/${selfUser.id}/${selfUser.avatar}.png`
+                    url: this.bot.utils.getAvatarUrl(selfUser)
                 },
                 fields: [{
                     name: 'Version',
