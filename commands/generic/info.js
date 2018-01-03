@@ -8,6 +8,7 @@ class Info extends Command {
         this.cmd = 'info';
         this.type = 'generic';
         this.bot = bot;
+        this.help = {description: 'Get information about the bot, like what library was used, what version is currently being ran and more'};
     }
 
     async run(msg) {

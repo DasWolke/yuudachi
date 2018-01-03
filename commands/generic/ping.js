@@ -6,6 +6,7 @@ class Ping extends Command {
         this.cmd = 'ping';
         this.type = 'generic';
         this.bot = bot;
+        this.help = {description: 'Get the ping from the bot to discord'};
     }
 
     async run(msg) {
