@@ -162,8 +162,8 @@ minimatch@3.0.3:
     brace-expansion "^1.0.0"
 
 moment@^2.19.3:
-  version "2.19.3"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
 ms@2.0.0:
   version "2.0.0"
@@ -185,9 +185,8 @@ qs@^6.5.1:
 
 raincache@DasWolke/RainCache#dev:
   version "0.3.3"
-  resolved "https://codeload.github.com/DasWolke/RainCache/tar.gz/10cc3bb593f7d3783fe630049ab539ca59bedd4b"
+  resolved "https://codeload.github.com/DasWolke/RainCache/tar.gz/2cf4ec0e63ae92dfe13914b46e413c62ff207df1"
   dependencies:
-    blocked "^1.2.1"
     tsubaki "^1.2.0"
   optionalDependencies:
     amqplib "^0.5.2"
@@ -265,10 +264,10 @@ stack-trace@0.0.9:
 
 stargear@DasWolke/StarGear#dev:
   version "0.1.0"
-  resolved "https://codeload.github.com/DasWolke/StarGear/tar.gz/55725f3127e3dfa2fada6a0c8677440907714715"
+  resolved "https://codeload.github.com/DasWolke/StarGear/tar.gz/24706e9c1471820ed63c5b092cd87a3d673a6f96"
   dependencies:
-    raincache DasWolke/RainCache
-    snowtransfer DasWolke/SnowTransfer
+    raincache DasWolke/RainCache#dev
+    snowtransfer "^0.1.0"
   optionalDependencies:
     amqplib "^0.5.1"
 
