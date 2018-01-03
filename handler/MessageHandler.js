@@ -21,6 +21,9 @@ class MessageHandler {
                             cmd = msg.content.substr(`<@!${selfUser.id}>`.length + 1).trim().split(' ')[0];
                         }
                     } else {
+                        if (msg.content.charAt(this.prefix.length) !== ' ') {
+                            return;
+                        }
                         cmd = msg.content.substr(this.prefix.length + 1).trim().split(' ')[0]; //bump prefix length by one to not execute cmds without space
                     }
                     if (!cmd) {
