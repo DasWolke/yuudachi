@@ -8,8 +8,6 @@ class MessageHandler {
     async onMessage(msg) {
         let selfUser = await this.bot.cache.user.get('self');
         selfUser = await this.bot.cache.user.get(selfUser.id);
-        let channel = await this.bot.cache.channel.get(msg.channel_id);
-        console.log(`${channel.name}: ${msg.author.username}#${msg.author.discriminator} [${msg.author.bot ? 'BOT' : 'USER'}]: ${msg.content}`);
         if (!msg.author.bot) {
             if (msg.content.startsWith(this.prefix) || msg.content.startsWith(`<@${selfUser.id}>`) || msg.content.startsWith(`<@!${selfUser.id}>`)) {
                 try {
