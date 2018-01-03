@@ -35,15 +35,15 @@ class WeebHandler {
     }
 
     async getReputation(botId, userId) {
-        let req = await axios.get(`http://weeb-dev.wolke.network/reputation/${botId}/${userId}`, {headers: {Authorization: `Wolke ${devToken}`}});
+        let req = await axios.get(`https://api.weeb.sh/reputation/${botId}/${userId}`, {headers: {Authorization: `Wolke ${this.weebToken}`}});
         return req.data.user;
     }
 
     async increaseReputation(botId, sourceUserId, targetUserId) {
         let req = await axios({
-            url: `http://weeb-dev.wolke.network/reputation/${botId}/${targetUserId}`,
+            url: `https://api.weeb.sh/reputation/${botId}/${targetUserId}`,
             headers: {
-                Authorization: `Wolke ${devToken}`
+                Authorization: `Wolke ${this.weebToken}`
             },
             data: {source_user: sourceUserId},
             method: 'post'
@@ -52,7 +52,7 @@ class WeebHandler {
     }
 
     async loadReputationLeaderboard(botId) {
-        let req = await axios.get(`http://weeb-dev.wolke.network/reputation/${botId}/leaderboard`, {headers: {Authorization: `Wolke ${devToken}`}});
+        let req = await axios.get(`https://api.weeb.sh/reputation/${botId}/leaderboard`, {headers: {Authorization: `Wolke ${this.weebToken}`}});
         return req.data.users;
     }
 }
