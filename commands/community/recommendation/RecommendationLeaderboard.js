@@ -19,6 +19,7 @@ class RecommendationLeaderboard extends SubCommand {
 
         let embed = {
             title: '<:poiHappy:379720490924769292> Most recommended Admirals <:poiHappy:379720490924769292>',
+            color: 0xF3E769,
             fields: await this._prepareLeaderboardFields(leaderboard)
         };
         return this.bot.rest.channel.createMessage(msg.channel_id, {embed});
@@ -51,8 +52,9 @@ class RecommendationLeaderboard extends SubCommand {
     }
 
     async _prepareLeaderboardName(user, x) {
-        let trophy = x === 0 ? ' :trophy:' : x === 1 ? ':second_place:' : x === 2 ? ':third_place:' : '';
-        return `**${x + 1}.**${trophy} <@${user.userId}> (${user.reputation})\n(**${await this._getUsernameFromId(user.userId)}**)\n`;
+        let trophy = x === 0 ? ' :trophy:' : x === 1 ? ':second_place:' : x === 2 ? ':third_place:' : ':medal:';
+        //<@${user.userId}>
+        return `**${x + 1}.**${trophy} **${await this._getUsernameFromId(user.userId)}** (${user.reputation})\n`;
     }
 
     async _getUsernameFromId(id) {
