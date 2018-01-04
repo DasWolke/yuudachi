@@ -1,5 +1,6 @@
 const Command = require('../../../structure/Command');
 const Moment = require('moment');
+const idRegex = require('../../../structure/utils').idRegex;
 
 class Recommendation extends Command {
     constructor(bot) {
@@ -23,7 +24,18 @@ class Recommendation extends Command {
         if (args.length > 0 && args[0] === 'leaderboard') {
             return this.runSubcommand(args[0], msg, selfUser, this);
         }
-        if (msg.mentions.length === 0) {
+        let user;
+        if (args.length > 0) {
+            if (msg.mentions.length > 0) {
+                user = msg.mentions[0];
+            } else if (idRegex.test(args[0])) {
+                user = await this.bot.cache.user.get(args[0].trim());
+                if (!user) {
+                    return this.bot.rest.channel.createMessage(msg.channel_id, 'No user was found with this id');
+                }
+            }
+        }
+        if (!user) {
             let recData;
             try {
                 recData = await this.bot.handler.weebHandler.getReputation(selfUser.id, msg.author.id);
@@ -48,8 +60,6 @@ class Recommendation extends Command {
             };
             return this.bot.rest.channel.createMessage(msg.channel_id, embed);
         }
-
-        let user = msg.mentions[0];
         if (user.id === msg.author.id) {
             return this.bot.rest.channel.createMessage(msg.channel_id, ':no_entry_sign: You can\'t write a letter of recommendation for yourself');
         }

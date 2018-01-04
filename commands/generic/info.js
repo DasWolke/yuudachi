@@ -30,7 +30,7 @@ class Info extends Command {
                     inline: true
                 }, {
                     name: 'Library',
-                    value: `Wolkeware, using stargear V${starGearVersion}`,
+                    value: `Wolkeware/Stargear V${starGearVersion}`,
                     inline: true
                 }, {
                     name: 'Guilds',

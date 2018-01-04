@@ -33,8 +33,7 @@ class RecommendationLeaderboard extends SubCommand {
             if ((i === 0 && x === 0) || (x % 3 === 0 && x > 0)) {
                 fields.push({
                     name: `${x + 1}-${x + 3}`,
-                    value: await this._prepareLeaderboardName(user, x),
-                    inline: true
+                    value: await this._prepareLeaderboardName(user, x)
                 });
                 if (x !== 0) {
                     i++;
