@@ -25,6 +25,9 @@ class ShitWaifu extends Command {
                 }
             }
         }
+        if (!user) {
+            return this.bot.rest.channel.createMessage(msg.channel_id, 'Please mention someone that is a bad waifu or pass the id of a user');
+        }
         await this.bot.rest.channel.startChannelTyping(msg.channel_id);
         let avatar = this.bot.utils.getAvatarUrl(user);
         let image;
