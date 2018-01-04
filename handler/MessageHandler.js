@@ -9,7 +9,9 @@ class MessageHandler {
         let selfUser = await this.bot.cache.user.get('self');
         selfUser = await this.bot.cache.user.get(selfUser.id);
         if (!msg.author.bot) {
-            if (msg.content.startsWith(this.prefix) || msg.content.startsWith(`<@${selfUser.id}>`) || msg.content.startsWith(`<@!${selfUser.id}>`)) {
+            if (msg.content.toLowerCase().startsWith(this.prefix) ||
+                msg.content.startsWith(`<@${selfUser.id}>`) ||
+                msg.content.startsWith(`<@!${selfUser.id}>`)) {
                 try {
                     let cmd;
                     if (msg.content.startsWith(`<@${selfUser.id}>`) || msg.content.startsWith(`<@!${selfUser.id}>`)) {

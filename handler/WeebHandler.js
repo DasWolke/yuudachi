@@ -1,10 +1,13 @@
 let axios = require('axios');
 const devToken = require('../config/config.json').weebDevToken;
-
+const pkg = require('../package');
 class WeebHandler {
     constructor(weebToken, bot) {
         this.weebToken = weebToken;
-        this.client = axios.create({baseURL: 'https://api.weeb.sh', headers: {Authorization: `Wolke ${weebToken}`}});
+        this.client = axios.create({
+            baseURL: 'https://api.weeb.sh',
+            headers: {Authorization: `Wolke ${weebToken}`, 'User-Agent': `Yuudachi/${pkg.version}`}
+        });
         this.bot = bot;
     }
 
