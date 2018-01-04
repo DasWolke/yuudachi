@@ -44,7 +44,6 @@ class RecommendationLeaderboard extends SubCommand {
 
     async _prepareLeaderboardName(user, x) {
         let trophy = x === 0 ? ' :trophy:' : x === 1 ? ':second_place:' : x === 2 ? ':third_place:' : ':medal:';
-        //<@${user.userId}>
         return `**${x + 1}.**${trophy}${(x + 1) === 10 ? '' : ' '} **${await this._getUsernameFromId(user.userId)}** (${user.reputation})\n\n`;
     }
 
