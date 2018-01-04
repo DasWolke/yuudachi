@@ -18,32 +18,24 @@ class RecommendationLeaderboard extends SubCommand {
         }
 
         let embed = {
-            title: '<:poiHappy:379720490924769292> Most recommended Admirals <:poiHappy:379720490924769292>',
+            title: '<:poiHappy:379720490924769292> Top 10 most recommended Admirals <:poiHappy:379720490924769292>',
             color: 0xF3E769,
-            fields: await this._prepareLeaderboardFields(leaderboard)
+            description: await this._prepareLeaderboardDescription(leaderboard)
         };
         return this.bot.rest.channel.createMessage(msg.channel_id, {embed});
     }
 
-    async _prepareLeaderboardFields(leaderboard) {
+    async _prepareLeaderboardDescription(leaderboard) {
         let i = 0;
-        let x = 0;
-        let fields = [];
+        let description = '';
         for (let user of leaderboard) {
-            if ((i === 0 && x === 0) || (x % 3 === 0 && x > 0)) {
-                fields.push({
-                    name: `${x + 1}-${x + 3}`,
-                    value: await this._prepareLeaderboardName(user, x)
-                });
-                if (x !== 0) {
-                    i++;
-                }
-            } else {
-                fields[i].value += await this._prepareLeaderboardName(user, x);
+            description += await this._prepareLeaderboardName(user, i);
+            i++;
+            if (i === 10) {
+                break;
             }
-            x++;
         }
-        return fields;
+        return description;
     }
 
     async _loadLeaderboard(botId) {
@@ -53,7 +45,7 @@ class RecommendationLeaderboard extends SubCommand {
     async _prepareLeaderboardName(user, x) {
         let trophy = x === 0 ? ' :trophy:' : x === 1 ? ':second_place:' : x === 2 ? ':third_place:' : ':medal:';
         //<@${user.userId}>
-        return `**${x + 1}.**${trophy} **${await this._getUsernameFromId(user.userId)}** (${user.reputation})\n`;
+        return `**${x + 1}.**${trophy}${(x + 1) === 10 ? '' : ' '} **${await this._getUsernameFromId(user.userId)}** (${user.reputation})\n\n`;
     }
 
     async _getUsernameFromId(id) {
