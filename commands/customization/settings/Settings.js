@@ -1,5 +1,5 @@
 const Command = require('../../../structure/Command');
-const SettingGroups = require('../../../structure/SettingGroups');
+const SettingGroups = require('../../../structure/settingGroups');
 const utils = require('../../../structure/utils');
 
 class Settings extends Command {
@@ -18,13 +18,17 @@ class Settings extends Command {
         }
         let argSplit = args[0].split('.');
         if (SettingGroups[argSplit[0]] && argSplit.length === 1) {
-            let embed = this._buildSubSettingsEmbed(SettingGroups[argSplit[0]]);
+            let id = await this._getIdForType(msg, SettingGroups[argSplit[0]].apiType);
+            let settings = await this.bot.handler.settingsHandler.get(SettingGroups[argSplit[0]].apiType, id);
+            let embed = this._buildSubSettingsEmbed(SettingGroups[argSplit[0]], settings);
             return this.bot.rest.channel.createMessage(msg.channel_id, {embed});
         }
         if (SettingGroups[argSplit[0]] && SettingGroups[argSplit[0]].settings[argSplit[1]]) {
+            let id = await this._getIdForType(msg, SettingGroups[argSplit[0]].apiType);
+            let settingsObject = await this.bot.handler.settingsHandler.get(SettingGroups[argSplit[0]].apiType, id);
             let setting = SettingGroups[argSplit[0]].settings[argSplit[1]];
             let name = argSplit[1];
-            let embed = this._buildSingleSettingEmbed(setting, name, this._combineGroupWithKey(argSplit[0], name));
+            let embed = this._buildSingleSettingEmbed(setting, name, this._combineGroupWithKey(argSplit[0], name), settingsObject);
             return this.bot.rest.channel.createMessage(msg.channel_id, {embed});
         }
 
@@ -46,7 +50,7 @@ class Settings extends Command {
         return embed;
     }
 
-    _buildSubSettingsEmbed(subSetting) {
+    _buildSubSettingsEmbed(subSetting, settingsObject) {
         let embed = {
             title: `:tools: ${utils.uppercaseFirstChar(subSetting.name)} settings :tools:`,
             fields: [],
@@ -56,13 +60,13 @@ class Settings extends Command {
         for (let key of keys) {
             embed.fields.push({
                 name: this._combineGroupWithKey(subSetting.name, key),
-                value: subSetting.settings[key].short
+                value: `${subSetting.settings[key].short}\nValue: \`${settingsObject[key]}\`${settingsObject[key] === subSetting.settings[key].standard ? ' (Default)' : ''}`
             });
         }
         return embed;
     }
 
-    _buildSingleSettingEmbed(setting, settingName, settingKey) {
+    _buildSingleSettingEmbed(setting, settingName, settingKey, settingsObject) {
         let embed = {
             title: `:tools: ${utils.uppercaseFirstChar(settingName)}/${settingKey} :tools:`,
             description: 'If you are seeing this, something went reallyyyyyy wrong >w<',
@@ -71,13 +75,16 @@ class Settings extends Command {
         let description = '';
         description += `**Name**: \`${settingKey}\`\n`;
         if (setting.type) {
-            description += `**Type**: ${setting.type}\n`;
+            description += `**Type**: \`${setting.type}\`\n`;
         }
         if (setting.standard) {
-            description += `**Default**: ${setting.standard}\n`;
+            description += `**Default**: \`${setting.standard}\`\n`;
+        }
+        if (settingsObject[settingName]) {
+            description += `**Current Value**: \`${settingsObject[settingName]}\`\n`;
         }
         if (setting.description) {
-            description += `**Description** ${setting.description}`;
+            description += `**Description**: ${setting.description}`;
         }
         embed.description = description;
         return embed;
@@ -85,6 +92,22 @@ class Settings extends Command {
 
     _combineGroupWithKey(group, key) {
         return `${group}.${key}`;
+    }
+
+    async _getIdForType(msg, type) {
+        let channel;
+        switch (type) {
+            case 'guilds':
+                channel = await this.bot.cache.channel.get(msg.channel_id);
+                if (!channel.guild_id) {
+                    return null;
+                }
+                return channel.guild_id;
+            case 'users':
+                return msg.author.id;
+            default:
+                return null;
+        }
     }
 }
 

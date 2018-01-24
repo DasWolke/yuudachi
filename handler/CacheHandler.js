@@ -34,6 +34,10 @@ class CacheHandler {
         }
         return null;
     }
+
+    async set(id, stringifyJson = false, setExpire = true, expireTime = 3600, data) {
+
+    }
 }
 
 module.exports = CacheHandler;

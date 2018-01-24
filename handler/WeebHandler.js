@@ -1,6 +1,7 @@
 let axios = require('axios');
 const devToken = require('../config/config.json').weebDevToken;
 const pkg = require('../package');
+
 class WeebHandler {
     constructor(weebToken, bot) {
         this.weebToken = weebToken;
@@ -67,7 +68,16 @@ class WeebHandler {
     }
 
     async getSetting(type, id) {
-        let req = await axios.get(`http://weeb-dev.wolke.network/settings`);
+        let req = await axios.get(`http://weeb-dev.wolke.network/settings/${type}/${id}`, {headers: {Authorization: `Wolke ${devToken}`}});
+        return req.data.setting.data;
+    }
+
+    async setSetting(type, id, data) {
+        let req = await axios.post(`http://weeb-dev.wolke.network/settings/${type}/${id}`, {
+            headers: {Authorization: `Wolke ${devToken}`},
+            data
+        });
+        return req.data.setting.data;
     }
 }
 

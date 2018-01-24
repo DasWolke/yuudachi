@@ -1,6 +1,7 @@
 const MessageHandler = require('../handler/MessageHandler');
 const WeebHandler = require('../handler/WeebHandler');
 const CacheHandler = require('../handler/CacheHandler');
+const SettingsHandler = require('../handler/SettingsHandler');
 const commandLoader = require('./CommandLoader');
 
 class BotLoader {
@@ -27,6 +28,7 @@ class BotLoader {
         this.bot.aliases = commandAliasObject.aliasMap;
         this.bot.commandTypes = commandAliasObject.types;
         this.bot.handler.messageHandler = new MessageHandler(this.bot);
+        this.bot.handler.settingsHandler = new SettingsHandler(this.bot);
         this.bot.on('messageCreate', async (msg) => {
             await this.bot.handler.messageHandler.onMessage(msg);
         });
