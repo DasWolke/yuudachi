@@ -4,7 +4,7 @@ class ImageCommands extends Command {
     constructor(bot) {
         super();
         this.cmd = 'image';
-        this.shortcuts = ['pat', 'cuddle', 'kiss', 'hug'];
+        this.shortcuts = ['pat', 'cuddle', 'kiss', 'hug', 'poi'];
         this.aliases = ['images'].concat(this.shortcuts);
         this.type = 'fun';
         this.bot = bot;
@@ -21,6 +21,9 @@ class ImageCommands extends Command {
         }, {
             name: 'hug / image hug',
             value: 'Hug someone'
+        }, {
+            name: 'poi / image poi',
+            value: 'Poi~'
         }];
         this.init();
         this.help = {
