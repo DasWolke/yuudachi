@@ -1,5 +1,5 @@
 const Command = require('../../structure/Command');
-
+const utils = require('../../structure/utils');
 class Choose extends Command {
     constructor(bot) {
         super();
@@ -27,6 +27,7 @@ class Choose extends Command {
         }
         let result = choices[Math.floor(Math.random() * choices.length)];
         let template = this.choiceTemplates[Math.floor(Math.random() * this.choiceTemplates.length)];
+        result = utils.removeServerMention(result);
         return this.bot.rest.channel.createMessage(msg.channel_id, `${template.replace('{{item}}', result)}`);
     }
 }
