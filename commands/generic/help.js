@@ -9,7 +9,8 @@ class Help extends Command {
         this.typeMap = {
             'generic': '<:poicolle:380425500683927553> Standard Commands',
             'fun': '<:poiLove:379725495161323530> Fun Commands',
-            'community': '<:poiHappy:379720490924769292> Community Commands'
+            'community': '<:poiHappy:379720490924769292> Community Commands',
+            'customization': '<:poiGood:404047971114680322> Customization Commands'
         };
     }
 
