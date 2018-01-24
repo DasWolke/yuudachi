@@ -65,6 +65,10 @@ class WeebHandler {
         });
         return req.data;
     }
+
+    async getSetting(type, id) {
+        let req = await axios.get(`http://weeb-dev.wolke.network/settings`);
+    }
 }
 
 module.exports = WeebHandler;

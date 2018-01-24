@@ -6,6 +6,9 @@ module.exports = async (dirPath, bot) => {
     let files = await recursive(dirPath);
     let subCommands = [];
     for (let file of files) {
+        if (!file.endsWith('.js')) {
+            return;
+        }
         let commandClass = require('../' + file);
         if (commandClass.isSubcommand) {
             subCommands.push(commandClass);
