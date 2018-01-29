@@ -36,7 +36,13 @@ class CacheHandler {
     }
 
     async set(id, stringifyJson = false, setExpire = true, expireTime = 3600, data) {
-
+        if (stringifyJson) {
+            data = JSON.stringify(data);
+        }
+        await this.client.setAsync(id, data);
+        if (setExpire) {
+            await this.client.expireAsync(id, expireTime);
+        }
     }
 }
 
