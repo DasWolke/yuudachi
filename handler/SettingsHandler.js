@@ -29,8 +29,10 @@ class SettingsHandler {
         return setting;
     }
 
-    async set(type, id) {
-
+    async set(type, id, data) {
+        let setting = await this.bot.handler.weebHandler.setSetting(type, id, data);
+        await this.bot.handler.cacheHandler.set(`settings.${type}.${id}`, true, true, 3600, setting);
+        return setting;
     }
 
     async _get(type, id) {
