@@ -1,4 +1,4 @@
-const settingsGroups = require('../structure/settingGroups');
+const settingGroups = require('../structure/settingGroups');
 
 class SettingsHandler {
     constructor(bot) {
@@ -15,13 +15,13 @@ class SettingsHandler {
     }
 
     _addMissingPropertiesToSetting(type, setting) {
-        let keys = Object.keys(settingsGroups);
+        let keys = Object.keys(settingGroups);
         for (let key of keys) {
-            if (settingsGroups[key].apiType === type) {
-                let settingKeys = Object.keys(settingsGroups[key].settings);
+            if (settingGroups[key].apiType === type) {
+                let settingKeys = Object.keys(settingGroups[key].settings);
                 for (let settingKey of settingKeys) {
                     if (typeof setting[settingKey] === 'undefined') {
-                        setting[settingKey] = settingsGroups[key].settings[settingKey].standard;
+                        setting[settingKey] = settingGroups[key].settings[settingKey].standard;
                     }
                 }
             }
@@ -49,10 +49,43 @@ class SettingsHandler {
         return setting;
     }
 
-    async _set(type, id, setting) {
-        await this.bot.handler.cacheHandler.set(`settings.${type}.${id}`, true, true, 3600, setting);
-        await this.bot.handler.weebHandler.setSetting(type, id, setting);
-        return setting;
+    async resolve(key, id) {
+        let keySplit = key.split('.');
+        if (!this.checkKeyExist(keySplit)) {
+            throw new Error(`The key ${key} does not exist!`);
+        }
+        let apiType = this.getApiType(keySplit[0]);
+        let setting = await this.get(apiType, id);
+        return setting[keySplit[1]];
+    }
+
+    getSettingFromGroup(keySplit) {
+        if (!this.checkKeyExist(keySplit)) {
+            return false;
+        }
+        return settingGroups[keySplit[0]].settings[keySplit[1]];
+    }
+
+    checkTypeExist(type) {
+        return !!settingGroups[type];
+    }
+
+    checkKeyExist(keySplit) {
+        let type = keySplit[0];
+        let settingKey = keySplit[1];
+        if (settingGroups[type]) {
+            if (settingGroups[type].settings[settingKey]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    getApiType(type) {
+        if (this.checkTypeExist(type)) {
+            return settingGroups[type].apiType;
+        }
+        return false;
     }
 }
 

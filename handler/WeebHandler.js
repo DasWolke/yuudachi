@@ -23,7 +23,12 @@ class WeebHandler {
     }
 
     async handleCmd(msg) {
-        let image = await this.getRandom(msg.cmd, [], false, false);
+        let image;
+        try {
+            image = await this.getRandom(msg.cmd, [], false, false);
+        } catch (e) {
+            return this.bot.rest.channel.createMessage(msg.channel_id, '<:poiPeek:380429329877827595> Sorry, I was unable to find an image for you');
+        }
         if (!image) {
             return this.bot.rest.channel.createMessage(msg.channel_id, '<:poiPeek:380429329877827595> Sorry, I was unable to find an image for you');
         }
@@ -73,9 +78,8 @@ class WeebHandler {
     }
 
     async setSetting(type, id, data) {
-        let req = await axios.post(`http://weeb-dev.wolke.network/settings/${type}/${id}`, {
-            headers: {Authorization: `Wolke ${devToken}`},
-            data
+        let req = await axios.post(`http://weeb-dev.wolke.network/settings/${type}/${id}`, data, {
+            headers: {Authorization: `Wolke ${devToken}`}
         });
         return req.data.setting.data;
     }

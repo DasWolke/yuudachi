@@ -8,8 +8,11 @@ class MessageHandler {
     async onMessage(msg) {
         let selfUser = await this.bot.cache.user.get('self');
         selfUser = await this.bot.cache.user.get(selfUser.id);
+        let data = await this._loadData(msg);
         if (!msg.author.bot) {
-            if (msg.content.toLowerCase().startsWith(this.prefix) ||
+            msg.channel = data.channel;
+            msg.prefix = data.prefix;
+            if (msg.content.toLowerCase().startsWith(data.prefix) ||
                 msg.content.startsWith(`<@${selfUser.id}>`) ||
                 msg.content.startsWith(`<@!${selfUser.id}>`)) {
                 try {
@@ -21,10 +24,10 @@ class MessageHandler {
                             cmd = msg.content.substr(`<@!${selfUser.id}>`.length + 1).trim().split(' ')[0];
                         }
                     } else {
-                        if (msg.content.charAt(this.prefix.length) !== ' ') {
+                        if (msg.content.charAt(data.prefix.length) !== ' ') {
                             return;
                         }
-                        cmd = msg.content.substr(this.prefix.length + 1).trim().split(' ')[0]; //bump prefix length by one to not execute cmds without space
+                        cmd = msg.content.substr(data.prefix.length + 1).trim().split(' ')[0]; //bump prefix length by one to not execute cmds without space
                     }
                     if (!cmd) {
                         return;
@@ -43,6 +46,15 @@ class MessageHandler {
                 }
             }
         }
+    }
+
+    async _loadData(msg) {
+        let channel = await this.bot.cache.channel.get(msg.channel_id);
+        let prefix = this.prefix;
+        if (channel.guild_id) {
+            prefix = await this.bot.handler.settingsHandler.resolve('server.prefix', channel.guild_id);
+        }
+        return {channel, prefix};
     }
 
     _getCommandArguments(msg, cmd) {

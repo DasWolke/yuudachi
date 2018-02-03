@@ -3,7 +3,7 @@ module.exports = {
         name: 'server',
         description: 'Customize prefixes,  serverwide notifications and more',
         apiType: 'guilds',
-        // icon:':tools:',
+        serverOnly: true,
         settings: {
             prefix: {
                 standard: 'poi',
