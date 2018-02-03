@@ -24,7 +24,7 @@ class Help extends Command {
                 }
             }
         }
-        let embed = this.buildEmbed();
+        let embed = this.buildEmbed(msg);
         return this.bot.rest.channel.createMessage(msg.channel_id, embed);
     }
 
@@ -54,11 +54,11 @@ class Help extends Command {
         return fields;
     }
 
-    buildEmbed() {
+    buildEmbed(msg) {
         return {
             embed: {
                 title: 'Hi, I\'m Yuudachi, a Shiratsuyu-class destroyer. Nice to meet you!',
-                description: `What I can do for you, poi~ ? Feel free to take a look at my functions down below~\nMy prefix is \`${this.bot.config.prefix}\` but you can also mention me~`,
+                description: `What I can do for you, poi~ ? Feel free to take a look at my functions down below~\nMy prefix is \`${msg.prefix}\` but you can also mention me~`,
                 color: 0xF3D73E,
                 thumbnail: {
                     url: 'https://cdn.discordapp.com/emojis/379720490924769292.png'
