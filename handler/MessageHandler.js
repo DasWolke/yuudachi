@@ -1,3 +1,4 @@
+const utils = require('../structure/utils')
 class MessageHandler {
   constructor (bot) {
     this.bot = bot
@@ -6,15 +7,15 @@ class MessageHandler {
   }
 
   async onMessage (msg) {
-    let selfUser = await this.bot.cache.user.get('self')
-    selfUser = await this.bot.cache.user.get(selfUser.id)
+    const selfUser = await utils.getSelfUser(this.bot)
     const data = await this._loadData(msg)
     if (!msg.author.bot) {
       msg.channel = data.channel
       msg.prefix = data.prefix
+      msg.selfUser = selfUser
       if (msg.content.toLowerCase().startsWith(data.prefix) ||
-                msg.content.startsWith(`<@${selfUser.id}>`) ||
-                msg.content.startsWith(`<@!${selfUser.id}>`)) {
+        msg.content.startsWith(`<@${selfUser.id}>`) ||
+        msg.content.startsWith(`<@!${selfUser.id}>`)) {
         try {
           let cmd
           if (msg.content.startsWith(`<@${selfUser.id}>`) || msg.content.startsWith(`<@!${selfUser.id}>`)) {

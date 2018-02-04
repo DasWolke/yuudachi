@@ -62,6 +62,11 @@ class WeebHandler {
     return req.data.users
   }
 
+  async resetReputation (botId, userId, cooldown) {
+    const req = await this.client({method: 'post', url: `/reputation/${botId}/${userId}/reset`, query: {cooldown}})
+    return req.data.users
+  }
+
   async getShitWaifu (avatar) {
     const req = await this.client({
       method: 'post',
