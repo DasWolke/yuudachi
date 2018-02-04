@@ -9,4 +9,9 @@ function removeServerMention (string) {
   return string.replace(/@everyone/g, '@\u200beveryone').replace(/@here/g, '@\u200bhere')
 }
 
-module.exports = {idRegex, uppercaseFirstChar, removeServerMention, numberRegex}
+async function getSelfUser (bot) {
+  const selfUser = await bot.cache.user.get('self')
+  return bot.cache.user.get(selfUser.id)
+}
+
+module.exports = {idRegex, uppercaseFirstChar, removeServerMention, numberRegex, getSelfUser}
