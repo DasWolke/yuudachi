@@ -14,7 +14,7 @@ module.exports = {
       smartrec: {
         standard: true,
         type: 'boolean',
-        short: 'Mention user when they get a recommendation for the first time in a while',
+        short: 'Only mention user when they get a recommendation for the first time in a while',
         description: 'This setting sets a server wide default whether a user will get @\u200bmentioned when they receive a recommendation via the rec command.\nA user will get mentioned if they are getting recommend by using the id and they haven\'t been mentioned within the channel for 5 minutes.'
       }
     }
