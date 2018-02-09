@@ -14,7 +14,7 @@
     "axios": "^0.17.1",
     "moment": "^2.19.3",
     "node-osu": "^1.3.0",
-    "raincache": "^0.4.0",
+    "raincache": "^0.4.1",
     "recursive-readdir": "^2.2.1",
     "redis": "^2.8.0",
     "stargear": "DasWolke/StarGear#dev",
