@@ -15,7 +15,7 @@ class OsuProfile extends Subcommand {
         if (osuUserName !== '') {
             let loadingEmbed = {
                 description: 'Loading Data from osu!...',
-                image: {url: 'https://cdn.weeb.sh/assets/Bars.webp'},
+              image: {url: 'https://cdn.weeb.sh/assets/Bars.gif'},
                 color: 0xcfa330
             };
             let message = await this.bot.rest.channel.createMessage(msg.channel_id, {embed: loadingEmbed});
