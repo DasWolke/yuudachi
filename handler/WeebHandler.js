@@ -78,14 +78,12 @@ class WeebHandler {
   }
 
   async getSetting (type, id) {
-    const req = await axios.get(`http://weeb-dev.wolke.network/settings/${type}/${id}`, {headers: {Authorization: `Wolke ${devToken}`}})
+    const req = await this.client({method: 'get', url: `settings/${type}/${id}`})
     return req.data.setting.data
   }
 
   async setSetting (type, id, data) {
-    const req = await axios.post(`http://weeb-dev.wolke.network/settings/${type}/${id}`, data, {
-      headers: {Authorization: `Wolke ${devToken}`}
-    })
+    const req = await this.client({method: 'post', url: `settings/${type}/${id}`, data})
     return req.data.setting.data
   }
 }

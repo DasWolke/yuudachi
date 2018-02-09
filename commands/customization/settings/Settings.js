@@ -14,6 +14,9 @@ class Settings extends Command {
     this.baseFields = Object.keys(settingGroups).map(k => {
       return {name: settingGroups[k].name, value: settingGroups[k].description}
     })
+    if (bot.config.environment && bot.config.environment === 'development') {
+      settingGroups.server.settings.prefix.standard = bot.config.prefix
+    }
   }
 
   async run (msg, args) {
