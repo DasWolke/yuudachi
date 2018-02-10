@@ -78,12 +78,12 @@ class WeebHandler {
   }
 
   async getSetting (type, id) {
-    const req = await this.client({method: 'get', url: `settings/${type}/${id}`})
+    const req = await this.client({method: 'get', url: `/settings/${type}/${id}`})
     return req.data.setting.data
   }
 
   async setSetting (type, id, data) {
-    const req = await this.client({method: 'post', url: `settings/${type}/${id}`, data})
+    const req = await this.client({method: 'post', url: `/settings/${type}/${id}`, data})
     return req.data.setting.data
   }
 }

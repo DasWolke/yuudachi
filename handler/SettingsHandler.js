@@ -43,6 +43,9 @@ class SettingsHandler {
         await this.bot.handler.cacheHandler.set(`settings.${type}.${id}`, true, true, 3600, setting)
         return setting
       } catch (e) {
+        if (e.response && e.response.status === 404) {
+          return {}
+        }
         return null
       }
     }
