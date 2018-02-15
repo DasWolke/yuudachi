@@ -9,3 +9,6 @@ Yellows:
 
 Blues:
 - \#54B9E7
+
+Greens
+- \#7EE407
