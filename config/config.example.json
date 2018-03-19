@@ -9,5 +9,6 @@
   "redisPassword": "",
   "amqpUrl": "",
   "snowGateUrl": "",
-  "cloudGateUrl": ""
+  "cloudGateUrl": "",
+  "environment": "Set this to 'development' to use the prefix from this config as default, if not yuudachi will use 'poi' as default"
 }
