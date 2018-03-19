@@ -11,7 +11,7 @@ class UserInputParser {
       case 'boolean':
         return this._parseBoolean(input)
       case 'string':
-        return true
+        return this._parseString(input)
       case 'number':
         return this._parseNumber(input)
       default:
@@ -31,7 +31,7 @@ class UserInputParser {
   }
 
   _parseString (input, regex) {
-    return true
+    return input
   }
 
   _parseNumber (input) {
