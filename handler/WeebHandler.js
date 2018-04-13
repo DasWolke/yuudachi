@@ -6,7 +6,7 @@ class WeebHandler {
   constructor (weebToken, bot) {
     this.weebToken = weebToken
     this.client = axios.create({
-      baseURL: 'https://api.weeb.sh',
+      baseURL: 'https://api-v2.weeb.sh',
       headers: {Authorization: `Wolke ${weebToken}`, 'User-Agent': `Yuudachi/${pkg.version}`}
     })
     this.bot = bot
