@@ -36,7 +36,7 @@ class SettingsHandler {
   }
 
   async _get (type, id) {
-    let setting = await this.bot.handler.cacheHandler.get(`settings.${type}.${id}`, true)
+    let setting = await this.bot.handler.cacheHandler.get(`settings.${type}.${id}`, true, false)
     if (!setting) {
       try {
         setting = await this.bot.handler.weebHandler.getSetting(type, id)
@@ -44,6 +44,7 @@ class SettingsHandler {
         return setting
       } catch (e) {
         if (e.response && e.response.status === 404) {
+          await this.bot.handler.cacheHandler.set(`settings.${type}.${id}`, true, true, 300, {})
           return {}
         }
         return null
