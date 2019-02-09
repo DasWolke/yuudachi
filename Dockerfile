@@ -1,4 +1,3 @@
-MAINTAINER Wolke <wolke@weeb.sh>
 FROM node:lts-slim
 RUN useradd app
 WORKDIR /home/app
