@@ -6,7 +6,7 @@ class Choose extends Command {
     this.cmd = 'choose'
     this.type = 'fun'
     this.bot = bot
-    this.help = {description: 'Let the bot choose something for you, seperate choices with `;`'}
+    this.help = { description: 'Let the bot choose something for you, seperate choices with `;`' }
     this.choiceTemplates = ['You should go with **{{item}}**.',
       'I think you should try **{{item}}** ?',
       'How about **{{item}}** ?',

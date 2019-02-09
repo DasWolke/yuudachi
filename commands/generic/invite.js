@@ -6,7 +6,7 @@ class Invite extends Command {
     this.cmd = 'invite'
     this.type = 'generic'
     this.bot = bot
-    this.help = {description: 'Invite the bot to your server'}
+    this.help = { description: 'Invite the bot to your server' }
   }
 
   async run (msg) {

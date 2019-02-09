@@ -31,5 +31,5 @@ module.exports = async (dirPath, bot) => {
       commands[cmd.parent].subCommands[cmd.cmd] = cmd
     }
   }
-  return {commands, aliasMap, types}
+  return { commands, aliasMap, types }
 }

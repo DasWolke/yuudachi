@@ -14,4 +14,4 @@ async function getSelfUser (bot) {
   return bot.cache.user.get(selfUser.id)
 }
 
-module.exports = {idRegex, uppercaseFirstChar, removeServerMention, numberRegex, getSelfUser}
+module.exports = { idRegex, uppercaseFirstChar, removeServerMention, numberRegex, getSelfUser }

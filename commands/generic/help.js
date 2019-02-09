@@ -46,7 +46,7 @@ class Help extends Command {
     const fields = [].concat(cmd.baseFields)
     for (const commandKey of Object.keys(cmd.subCommands)) {
       const subcommand = cmd.subCommands[commandKey]
-      const field = {name: '', value: ''}
+      const field = { name: '', value: '' }
       field.name = `${cmd.cmd} ${subcommand.cmd}`
       field.value = subcommand.help.description
       fields.push(field)
@@ -72,7 +72,7 @@ class Help extends Command {
     const typeArray = Object.keys(types)
     const fields = []
     for (const type of typeArray) {
-      const field = {name: '', value: ''}
+      const field = { name: '', value: '' }
       field.name = this.typeMap[type]
       field.value = types[type].map((cmd) => '`' + cmd + '`').join(', ')
       fields.push(field)

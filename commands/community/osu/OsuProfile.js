@@ -7,7 +7,7 @@ class OsuProfile extends Subcommand {
     this.parent = 'osu'
     this.bot = bot
     this.url = 'https://lemmmy.pw/osusig/sig.php?colour=hexffcc22&pp=2&darkheader&onlineindicator=undefined&xpbar&uname='
-    this.help = {description: 'Retrieve data about an osu profile by username'}
+    this.help = { description: 'Retrieve data about an osu profile by username' }
   }
 
   async run (msg, args, parent) {
@@ -15,36 +15,36 @@ class OsuProfile extends Subcommand {
     if (osuUserName !== '') {
       const loadingEmbed = {
         description: 'Loading Data from osu!...',
-        image: {url: 'https://cdn.weeb.sh/assets/Bars.gif'},
+        image: { url: 'https://cdn.weeb.sh/assets/Bars.gif' },
         color: 0xcfa330
       }
-      const message = await this.bot.rest.channel.createMessage(msg.channel_id, {embed: loadingEmbed})
+      const message = await this.bot.rest.channel.createMessage(msg.channel_id, { embed: loadingEmbed })
       let osuUser
       try {
-        osuUser = await parent.osuApi.getUser({u: osuUserName})
+        osuUser = await parent.osuApi.getUser({ u: osuUserName })
       } catch (e) {
         if (e.message === 'User not found') {
-          return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`The user ${osuUserName} does not exist. :<`)})
+          return this.bot.rest.channel.editMessage(msg.channel_id, message.id, { embed: this._getErrorEmbed(`The user ${osuUserName} does not exist. :<`) })
         }
-        return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`There was an error loading your user ${osuUserName}`)})
+        return this.bot.rest.channel.editMessage(msg.channel_id, message.id, { embed: this._getErrorEmbed(`There was an error loading your user ${osuUserName}`) })
       }
       let userScores
       try {
-        userScores = await parent.osuApi.getUserBest({u: osuUser.id, type: 'id'})
+        userScores = await parent.osuApi.getUserBest({ u: osuUser.id, type: 'id' })
       } catch (e) {
         console.log(e)
-        return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed: this._getErrorEmbed(`There was an error loading your user ${osuUserName}`)})
+        return this.bot.rest.channel.editMessage(msg.channel_id, message.id, { embed: this._getErrorEmbed(`There was an error loading your user ${osuUserName}`) })
       }
       const embed = {
         title: `osu! profile of ${osuUserName}`,
         description: `:trophy: **Best plays of ${osuUserName}**`,
         fields: this._generateScoreFields(userScores),
-        image: {url: this.url + osuUserName},
+        image: { url: this.url + osuUserName },
         url: `https://osu.ppy.sh/u/${osuUser.id}`,
         color: 0xcfa330,
-        footer: {text: 'Uses lemmmy.pw and the official osu api'}
+        footer: { text: 'Uses lemmmy.pw and the official osu api' }
       }
-      return this.bot.rest.channel.editMessage(msg.channel_id, message.id, {embed})
+      return this.bot.rest.channel.editMessage(msg.channel_id, message.id, { embed })
     } else {
       return this.bot.rest.channel.createMessage(msg.channel_id, 'Nya, this feature is not implemented yet, add a username!')
     }

@@ -55,7 +55,7 @@ class MessageHandler {
     if (channel.guild_id) {
       prefix = await this.bot.handler.settingsHandler.resolve('server.prefix', channel.guild_id)
     }
-    return {channel, prefix}
+    return { channel, prefix }
   }
 
   _getCommandArguments (msg, cmd) {

@@ -10,9 +10,9 @@ class Settings extends Command {
     this.aliases = ['setting', 'set']
     this.type = 'customization'
     this.bot = bot
-    this.help = {description: 'Customize settings of the bot to fit your taste'}
+    this.help = { description: 'Customize settings of the bot to fit your taste' }
     this.baseFields = Object.keys(settingGroups).map(k => {
-      return {name: settingGroups[k].name, value: settingGroups[k].description}
+      return { name: settingGroups[k].name, value: settingGroups[k].description }
     })
     if (bot.config.environment && bot.config.environment === 'development') {
       settingGroups.server.settings.prefix.standard = bot.config.prefix
@@ -22,7 +22,7 @@ class Settings extends Command {
   async run (msg, args) {
     if (args.length === 0) {
       const embed = this._buildMainSettingsEmbed(msg)
-      return this.bot.rest.channel.createMessage(msg.channel_id, {embed})
+      return this.bot.rest.channel.createMessage(msg.channel_id, { embed })
     }
     const keySplit = args[0].split('.')
     if (this.bot.handler.settingsHandler.checkTypeExist(keySplit[0])) {
@@ -37,7 +37,7 @@ class Settings extends Command {
         return this._runSingleSettingAction(msg, name, keySplit, settingsData, fullKey, id, args)
       }
       const embed = this._buildSubSettingsEmbed(msg, settingGroups[keySplit[0]], settingsData)
-      return this.bot.rest.channel.createMessage(msg.channel_id, {embed})
+      return this.bot.rest.channel.createMessage(msg.channel_id, { embed })
     } else {
       return this.bot.rest.channel.createMessage(msg.channel_id, `<:mark_cross:401923066197966848> There does not seem to be a settings group called \`${keySplit[0]}\``)
     }
@@ -53,7 +53,7 @@ class Settings extends Command {
       return this.bot.rest.channel.createMessage(msg.channel_id, '<:mark_cross:401923066197966848> You don\'t have the right permissions for this command, you either need to have the Administrator permission or be the owner of the server to use this command')
     }
     const embed = this._buildSingleSettingEmbed(msg, setting, name, fullKey, settingsData)
-    return this.bot.rest.channel.createMessage(msg.channel_id, {embed})
+    return this.bot.rest.channel.createMessage(msg.channel_id, { embed })
   }
 
   async _updateSetting (msg, name, setting, settingsData, fullKey, id, args) {
@@ -71,14 +71,14 @@ class Settings extends Command {
     const apiType = this.bot.handler.settingsHandler.getApiType(fullKey.split('.')[0])
     await this._saveSetting(apiType, name, settingsData, id, newData)
     const embed = this._buildUpdatedSettingEmbed(setting, settingsData, name, fullKey, newData)
-    return this.bot.rest.channel.createMessage(msg.channel_id, {embed})
+    return this.bot.rest.channel.createMessage(msg.channel_id, { embed })
   }
 
   _buildMainSettingsEmbed (msg) {
     const embed = {
       title: ':tools: Settings :tools:',
       fields: [],
-      footer: {text: `Type ${msg.prefix} settings settingName to get more info about a setting`}
+      footer: { text: `Type ${msg.prefix} settings settingName to get more info about a setting` }
     }
     const keys = Object.keys(settingGroups)
     for (const key of keys) {
@@ -94,7 +94,7 @@ class Settings extends Command {
     const embed = {
       title: `:tools: ${utils.uppercaseFirstChar(subSetting.name)} settings :tools:`,
       fields: [],
-      footer: {text: `Type ${msg.prefix} settings settingName to get more info about a setting`}
+      footer: { text: `Type ${msg.prefix} settings settingName to get more info about a setting` }
     }
     const keys = Object.keys(subSetting.settings)
     for (const key of keys) {
@@ -110,7 +110,7 @@ class Settings extends Command {
     const embed = {
       title: `:tools: ${utils.uppercaseFirstChar(settingName)}/${settingKey} :tools:`,
       description: 'If you are seeing this, something went reallyyyyyy wrong >w<',
-      footer: {text: `Type ${msg.prefix} settings ${settingKey} value to change the value of this setting`}
+      footer: { text: `Type ${msg.prefix} settings ${settingKey} value to change the value of this setting` }
     }
     let description = ''
     description += `**Name**: \`${settingKey}\`\n`
