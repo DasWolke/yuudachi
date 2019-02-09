@@ -1,5 +1,5 @@
 const axios = require('axios')
-const devToken = require('../config/config.json').weebDevToken
+// const devToken = require('../config/config.json').weebDevToken
 const pkg = require('../package')
 
 class WeebHandler {

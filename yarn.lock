@@ -941,6 +941,15 @@ raincache@^0.4.0:
     amqplib "^0.5.2"
     redis "^2.8.0"
 
+raincache@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/raincache/-/raincache-0.4.1.tgz#4fa3f2adf6115fa4b7479095df0235305cdf1238"
+  dependencies:
+    tsubaki "^1.2.0"
+  optionalDependencies:
+    amqplib "^0.5.2"
+    redis "^2.8.0"
+
 raven@~2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/raven/-/raven-2.2.1.tgz#57c7fbe68a80147ec527def3d7c01575cf948fe3"
