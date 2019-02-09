@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:lts
 RUN useradd app
 WORKDIR /home/app
 ADD . /home/app
