@@ -7,7 +7,7 @@ class ShitWaifu extends Command {
     this.cmd = 'shitwaifu'
     this.type = 'fun'
     this.bot = bot
-    this.help = {description: 'Simple image generation command to rate down waifus, just mention the bad waifu'}
+    this.help = { description: 'Simple image generation command to rate down waifus, just mention the bad waifu' }
   }
 
   async run (msg, args) {
@@ -38,7 +38,7 @@ class ShitWaifu extends Command {
     }
     return this.bot.rest.channel.createMessage(msg.channel_id, {
       content: '',
-      file: {file: image, name: 'waifu.png'}
+      file: { file: image, name: 'waifu.png' }
     })
   }
 }

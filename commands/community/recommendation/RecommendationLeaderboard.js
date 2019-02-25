@@ -6,7 +6,7 @@ class RecommendationLeaderboard extends SubCommand {
     this.cmd = 'leaderboard'
     this.parent = 'rec'
     this.bot = bot
-    this.help = {description: 'Shows a leaderboard of the users with the highest amount of recommendation'}
+    this.help = { description: 'Shows a leaderboard of the users with the highest amount of recommendation' }
   }
 
   async run (msg, selfUser) {
@@ -22,7 +22,7 @@ class RecommendationLeaderboard extends SubCommand {
       color: 0xF3E769,
       description: await this._prepareLeaderboardDescription(leaderboard)
     }
-    return this.bot.rest.channel.createMessage(msg.channel_id, {embed})
+    return this.bot.rest.channel.createMessage(msg.channel_id, { embed })
   }
 
   async _prepareLeaderboardDescription (leaderboard) {

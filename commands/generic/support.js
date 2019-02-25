@@ -5,7 +5,7 @@ class Support extends Command {
     super()
     this.cmd = 'support'
     this.type = 'generic'
-    this.help = {description: 'Get an invite to my support server'}
+    this.help = { description: 'Get an invite to my support server' }
     this.bot = bot
   }
 

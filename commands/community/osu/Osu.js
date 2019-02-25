@@ -8,7 +8,7 @@ class Osu extends Command {
     this.cmd = 'osu'
     this.type = 'community'
     this.bot = bot
-    this.osuApi = new osu.Api(bot.config.osuApiKey, {completeScores: true})
+    this.osuApi = new osu.Api(bot.config.osuApiKey, { completeScores: true })
     this.help = {
       description: 'osu! related commands',
       thumbnail: 'https://cdn.weeb.sh/assets/osu_icon.png',

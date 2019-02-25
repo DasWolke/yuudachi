@@ -7,7 +7,7 @@ class ImageTypes extends Subcommand {
     this.cmd = 'types'
     this.parent = 'image'
 
-    this.help = {description: 'Get a list of all types that are currently available'}
+    this.help = { description: 'Get a list of all types that are currently available' }
   }
 
   async run (msg, args, parent) {

@@ -15,7 +15,7 @@ class Recommendation extends Command {
       name: 'rec @user',
       value: 'Write a letter of recommendation for the mentioned user'
     }]
-    this.help = {description: 'Write letters of recommendation for other admirals and get an overview of the most recommended admirals around the world'}
+    this.help = { description: 'Write letters of recommendation for other admirals and get an overview of the most recommended admirals around the world' }
   }
 
   async run (msg, args) {
@@ -82,7 +82,7 @@ class Recommendation extends Command {
       embed: {
         description: `You currently have **${recData.reputation}** letter${recData.reputation === 1 ? '' : 's'} of recommendation\n\n**${hasEnergy}**`,
         color: 0xF3D73E,
-        thumbnail: {url: 'https://cdn.weeb.sh/assets/reputation/tied-scroll.png'}
+        thumbnail: { url: 'https://cdn.weeb.sh/assets/reputation/tied-scroll.png' }
       }
     }
     return this.bot.rest.channel.createMessage(msg.channel_id, embed)
@@ -120,7 +120,7 @@ class Recommendation extends Command {
     if (user.id === msg.author.id) {
       return this.bot.rest.channel.createMessage(msg.channel_id, ':no_entry_sign: You can\'t write a letter of recommendation for yourself')
     }
-    return {user, unmentionUser}
+    return { user, unmentionUser }
   }
 
   async _processResponseError (e, msg) {
